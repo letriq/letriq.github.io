@@ -75,9 +75,9 @@
     </div>
     <div style="display:flex;gap:8px">
         <button id="pb" onclick="go(-1)"
-            style="width:30px;height:30px;border-radius:50%;background:#111;border:1px solid #1e1e1e;color:#555;font-size:14px;display:flex;align-items:center;justify-content:center">←</button>
+            style="width:30px;height:30px;border-radius:50%;background:#111;border:1px solid #1e1e1e;color:#555;font-size:14px;display:flex;align-items:center;justify-content:center"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 18-6-6 6-6" /></svg></button>
         <button id="nb" onclick="go(1)"
-            style="width:30px;height:30px;border-radius:50%;background:#F0B429;border:none;color:#000;font-size:14px;display:flex;align-items:center;justify-content:center;font-weight:700">→</button>
+            style="width:30px;height:30px;border-radius:50%;background:#F0B429;border:none;color:#000;font-size:14px;display:flex;align-items:center;justify-content:center;font-weight:700"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6" /></svg></button>
     </div>
 </div>
 <script>
@@ -102,6 +102,31 @@
     function h2(txt) { return `<h2 style="font-family:'Syne',sans-serif;font-size:clamp(26px,3.2vw,44px);font-weight:800;line-height:1.05;color:${TX};letter-spacing:-.03em;margin-bottom:8px">${txt}</h2>` }
     function gold(t) { return `<span style="color:${G}">${t}</span>` }
     function rust(t) { return `<span style="color:${RU}">${t}</span>` }
+    function icon(name, color = "currentColor", size = 16, stroke = 1.9) {
+        const common = `width="${size}" height="${size}" viewBox="0 0 24 24" fill="none" stroke="${color}" stroke-width="${stroke}" stroke-linecap="round" stroke-linejoin="round"`;
+        const paths = {
+            chevronRight: `<path d="m9 18 6-6-6-6"/>`,
+            lightbulb: `<path d="M9 18h6"/><path d="M10 22h4"/><path d="M12 2a7 7 0 0 0-4 12.8c.8.6 1.2 1.6 1.2 2.6V18h5.6v-.6c0-1 .4-2 1.2-2.6A7 7 0 0 0 12 2Z"/>`,
+            cpu: `<rect x="7" y="7" width="10" height="10" rx="2"/><path d="M12 7V4M12 20v-3M7 12H4M20 12h-3M17 7l2-2M5 19l2-2M17 17l2 2M5 5l2 2"/>`,
+            image: `<rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="9" cy="10" r="1.5"/><path d="m21 16-5-4-4 3-2-1.5L3 19"/>`,
+            refresh: `<path d="M21 2v6h-6"/><path d="M3 22v-6h6"/><path d="M20.5 13A8 8 0 0 0 7 5.2L3 8"/><path d="M3.5 11A8 8 0 0 0 17 18.8L21 16"/>`,
+            coin: `<circle cx="12" cy="12" r="9"/><path d="M12 7v10"/><path d="M15 9.5c0-1.1-1.3-2-3-2s-3 .9-3 2 1.3 2 3 2 3 .9 3 2-1.3 2-3 2-3-.9-3-2"/>`,
+            clock: `<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>`,
+            check: `<path d="m6 12 4 4 8-8"/>`,
+            close: `<path d="m18 6-12 12"/><path d="m6 6 12 12"/>`,
+            minus: `<path d="M6 12h12"/>`,
+            sparkles: `<path d="M12 3 13.8 8.2 19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8L12 3Z"/><path d="m19 3 .8 2.2L22 6l-2.2.8L19 9l-.8-2.2L16 6l2.2-.8L19 3Z"/><path d="m5 15 .8 2.2L8 18l-2.2.8L5 21l-.8-2.2L2 18l2.2-.8L5 15Z"/>`,
+            monogram: `<rect x="4" y="4" width="16" height="16" rx="3"/><path d="M9 9h6v6H9z"/>`,
+            palette: `<path d="M12 3a9 9 0 1 0 0 18h1.2a2.3 2.3 0 0 0 0-4.6H11a2.5 2.5 0 0 1 0-5h5a5 5 0 0 0 0-10h-4Z"/><circle cx="7.5" cy="10.5" r="1"/><circle cx="10" cy="7.5" r="1"/><circle cx="14.5" cy="7.5" r="1"/><circle cx="16.5" cy="11" r="1"/>`,
+            external: `<path d="M14 4h6v6"/><path d="m10 14 10-10"/><path d="M20 14v4a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h4"/>`,
+            code: `<path d="m9 18-6-6 6-6"/><path d="m15 6 6 6-6 6"/><path d="m14 4-4 16"/>`,
+            card: `<rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 10h18"/><path d="M7 15h4"/>`
+        };
+        return `<svg ${common} aria-hidden="true" focusable="false">${paths[name] || ""}</svg>`;
+    }
+    function iconBox(name, color = G, bg = `${G}14`, border = `${G}2a`) {
+        return `<span style="display:inline-flex;align-items:center;justify-content:center;width:20px;height:20px;border-radius:6px;background:${bg};border:1px solid ${border};flex-shrink:0">${icon(name, color, 12, 2)}</span>`;
+    }
 
     function renderCover() {
         return `
@@ -155,7 +180,14 @@
       Letriq breaks that equation. The first AI identity studio specialized in wordmarks and lettermarks — open-source and free. Because what should stop you is your idea, not your budget."</p>`)}
       ${card(`<div style="font-size:10px;color:${MT};letter-spacing:.1em;text-transform:uppercase;margin-bottom:12px;font-family:'Syne',sans-serif">The Current Cycle</div>
       <div style="display:flex;flex-wrap:wrap;gap:6px;align-items:center;font-size:12px">
-        ${["💡 Idea", "→", "🤖 AI Tool", "→", "😞 Generic PNG", "→", "😩 Back to zero"].map((t, i) => `<span style="background:${i % 2 === 0 ? BG : "transparent"};border:${i % 2 === 0 ? `1px solid ${BR}` : "none"};border-radius:6px;padding:${i % 2 === 0 ? "5px 10px" : "0"};color:${i === 6 ? RU : i % 2 === 1 ? "#2a2a2a" : "#666"};font-size:${i % 2 === 1 ? "15px" : "12px"}">${t}</span>`).join("")}
+        ${[
+                { icon: "lightbulb", label: "Idea", tone: "#666", alert: false },
+                { icon: "cpu", label: "AI Tool", tone: "#666", alert: false },
+                { icon: "image", label: "Generic PNG", tone: "#666", alert: false },
+                { icon: "refresh", label: "Back to zero", tone: RU, alert: true }
+            ].map((t, i, arr) => `
+            <span style="display:inline-flex;align-items:center;gap:6px;background:${BG};border:1px solid ${BR};border-radius:6px;padding:5px 10px;color:${t.tone};font-size:12px">${icon(t.icon, t.alert ? RU : "#8a8a8a", 13, 1.9)} ${t.label}</span>
+            ${i < arr.length - 1 ? `<span style="display:inline-flex;align-items:center;justify-content:center;color:#2a2a2a">${icon("chevronRight", "#2a2a2a", 14, 2.2)}</span>` : ""}`).join("")}
       </div>`)}
     </div>
   </div>
@@ -170,12 +202,12 @@
   <p style="color:${MT};margin-bottom:28px;font-size:14px">Brand identity is a bottleneck that kills momentum before launch.</p>
   <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px">
     ${[
-                { e: "💸", t: "Cost Barrier", d: "Professional brand identity costs $300–$2,000+. Looka alone charges $65–$192/year. Early-stage founders either skip it entirely or get stuck.", n: "$300–2K", l: "avg. brand identity cost", c: RU },
-                { e: "🤖", t: "AI Disappointment", d: "General AI tools (Midjourney, DALL-E) produce raster images — not brand systems. Output is uncreative, non-scalable, and can't be used professionally.", n: "0", l: "free AI tools specialized for brand identity", c: RU },
-                { e: "⏳", t: "Freelancer Friction", d: "Freelancers take 3–7 days minimum. Revisions add weeks. Brand identity becomes a launch blocker, not an enabler.", n: "3–7 days", l: "avg. freelancer turnaround", c: RU }
+                { e: "coin", t: "Cost Barrier", d: "Professional brand identity costs $300–$2,000+. Looka alone charges $65–$192/year. Early-stage founders either skip it entirely or get stuck.", n: "$300–2K", l: "avg. brand identity cost", c: RU },
+                { e: "cpu", t: "AI Disappointment", d: "General AI tools (Midjourney, DALL-E) produce raster images — not brand systems. Output is uncreative, non-scalable, and can't be used professionally.", n: "0", l: "free AI tools specialized for brand identity", c: RU },
+                { e: "clock", t: "Freelancer Friction", d: "Freelancers take 3–7 days minimum. Revisions add weeks. Brand identity becomes a launch blocker, not an enabler.", n: "3–7 days", l: "avg. freelancer turnaround", c: RU }
             ].map(p => `
     <div style="background:${S1};border:1px solid ${BR};border-radius:14px;padding:22px;display:flex;flex-direction:column;gap:12px">
-      <div style="font-size:32px">${p.e}</div>
+      <div style="display:inline-flex;width:38px;height:38px;border-radius:10px;background:${RU}16;border:1px solid ${RU}32;align-items:center;justify-content:center">${icon(p.e, RU, 19, 2)}</div>
       <h3 style="font-family:'Syne',sans-serif;font-size:15px;font-weight:700;color:${TX}">${p.t}</h3>
       <p style="font-size:12px;color:${MT};line-height:1.6">${p.d}</p>
       <div style="margin-top:auto;padding-top:14px;border-top:1px solid ${BR}">
@@ -187,7 +219,7 @@
 </div>`}
 
     function renderGap() {
-        const pts = [{ n: "Looka", x: 78, y: 62 }, { n: "Brandmark", x: 61, y: 44 }, { n: "Canva", x: 44, y: 20 }, { n: "Midjourney", x: 50, y: 11 }, { n: "Freelancers", x: 88, y: 77 }, { n: "Letriq ✦", x: 10, y: 87, star: true }];
+        const pts = [{ n: "Looka", x: 78, y: 62 }, { n: "Brandmark", x: 61, y: 44 }, { n: "Canva", x: 44, y: 20 }, { n: "Midjourney", x: 50, y: 11 }, { n: "Freelancers", x: 88, y: 77 }, { n: "Letriq", x: 10, y: 87, star: true }];
         return `
 <div class="s">
   <div style="display:grid;grid-template-columns:1fr 1fr;gap:44px;align-items:center">
@@ -236,10 +268,10 @@
             { l: "Developer API", v: ["$", "$", false, "$", true] }
         ];
         function cell(v, gold) {
-            if (v === true) return `<div style="width:20px;height:20px;border-radius:50%;background:${gold ? G : GR};display:flex;align-items:center;justify-content:center;margin:auto;font-size:11px;color:${gold ? "#000" : "#fff"}">✓</div>`;
-            if (v === false) return `<div style="width:20px;height:20px;border-radius:50%;background:#181818;display:flex;align-items:center;justify-content:center;margin:auto;font-size:11px;color:#2a2a2a">✕</div>`;
-            if (v === "~") return `<div style="width:20px;height:20px;border-radius:50%;background:#1a1900;display:flex;align-items:center;justify-content:center;margin:auto;font-size:14px;color:#6a5200">~</div>`;
-            return `<div style="font-size:11px;color:#444;text-align:center">💰 paid</div>`;
+            if (v === true) return `<div style="width:20px;height:20px;border-radius:50%;background:${gold ? G : GR};display:flex;align-items:center;justify-content:center;margin:auto;color:${gold ? "#000" : "#fff"}">${icon("check", "currentColor", 12, 2.4)}</div>`;
+            if (v === false) return `<div style="width:20px;height:20px;border-radius:50%;background:#181818;display:flex;align-items:center;justify-content:center;margin:auto;color:#2a2a2a">${icon("close", "currentColor", 12, 2.2)}</div>`;
+            if (v === "~") return `<div style="width:20px;height:20px;border-radius:50%;background:#1a1900;display:flex;align-items:center;justify-content:center;margin:auto;color:#6a5200">${icon("minus", "currentColor", 12, 2.2)}</div>`;
+            return `<div style="display:flex;align-items:center;justify-content:center;gap:4px;font-size:11px;color:#444">${icon("card", "#555", 12, 1.9)} paid</div>`;
         }
         return `
 <div class="s">
@@ -260,7 +292,12 @@
     </tbody>
   </table>
   <div style="margin-top:14px;display:flex;gap:16px;flex-wrap:wrap">
-    ${[["✓", "Available", GR], ["~", "Partial", "#886600"], ["💰", "Paid only", MT], ["✕", "Not available", "#333"]].map(([i, l, c]) => `<div style="display:flex;align-items:center;gap:5px;font-size:11px;color:${c}">${i} ${l}</div>`).join("")}
+    ${[
+            { i: iconBox("check", GR, `${GR}14`, `${GR}30`), l: "Available", c: GR },
+            { i: iconBox("minus", "#886600", "#1a1900", "#3a2d00"), l: "Partial", c: "#886600" },
+            { i: iconBox("card", MT, "#151515", "#2c2c2c"), l: "Paid only", c: MT },
+            { i: iconBox("close", "#333", "#171717", "#242424"), l: "Not available", c: "#333" }
+        ].map(x => `<div style="display:flex;align-items:center;gap:6px;font-size:11px;color:${x.c}">${x.i}<span>${x.l}</span></div>`).join("")}
   </div>
 </div>`}
 
@@ -276,14 +313,14 @@
     </div>
     <div style="display:flex;flex-direction:column;gap:9px">
       ${[
-                { i: "✦", t: "AI Wordmark Generator", d: "Type brand name + describe the vibe → multiple styled wordmarks in seconds" },
-                { i: "⬡", t: "Lettermark System", d: "Monogram and initials-based logo marks with full variation sets" },
-                { i: "◈", t: "Brand System Builder", d: "Auto-generate color palette, typography pairing, spacing + usage rules" },
-                { i: "↗", t: "Vector Export Engine", d: "SVG, PDF, and AI files — not PNG screenshots. Professional and scalable." },
-                { i: "⊕", t: "Open-Source Core", d: "Community-driven, customizable, integrable. Free tier that actually works." }
+                { i: "sparkles", t: "AI Wordmark Generator", d: `Type brand name + describe the vibe ${icon("chevronRight", "#777", 12, 2.1)} multiple styled wordmarks in seconds` },
+                { i: "monogram", t: "Lettermark System", d: "Monogram and initials-based logo marks with full variation sets" },
+                { i: "palette", t: "Brand System Builder", d: "Auto-generate color palette, typography pairing, spacing + usage rules" },
+                { i: "external", t: "Vector Export Engine", d: "SVG, PDF, and AI files — not PNG screenshots. Professional and scalable." },
+                { i: "code", t: "Open-Source Core", d: "Community-driven, customizable, integrable. Free tier that actually works." }
             ].map(f => `
       <div style="display:flex;gap:14px;align-items:flex-start;background:${S1};border:1px solid ${BR};border-radius:11px;padding:13px 16px">
-        <div style="font-size:18px;color:${G};width:22px;flex-shrink:0;margin-top:2px">${f.i}</div>
+        <div style="display:inline-flex;align-items:center;justify-content:center;width:24px;height:24px;border-radius:7px;background:${G}12;border:1px solid ${G}30;color:${G};flex-shrink:0;margin-top:1px">${icon(f.i, G, 14, 2)}</div>
         <div>
           <div style="font-family:'Syne',sans-serif;font-size:13px;font-weight:600;color:${TX};margin-bottom:3px">${f.t}</div>
           <div style="font-size:12px;color:${MT};line-height:1.5">${f.d}</div>
@@ -322,8 +359,8 @@
 <div class="s">
   ${badge("Business Model")}
   <div style="height:14px"></div>
-  ${h2(`Freemium → ${gold("$50K MRR")}`)}
-  <p style="color:${MT};margin-bottom:22px;font-size:13px">Community-led growth → Pro conversion → B2B API layer.</p>
+  ${h2(`Freemium ${icon("chevronRight", G, 14, 2.2)} ${gold("$50K MRR")}`)}
+  <p style="color:${MT};margin-bottom:22px;font-size:13px">Community-led growth ${icon("chevronRight", MT, 12, 2.1)} Pro conversion ${icon("chevronRight", MT, 12, 2.1)} B2B API layer.</p>
   <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:11px;margin-bottom:28px">
     ${[
                 { n: "Community", p: "Free", d: ["Basic exports", "Watermark commercial", "Community access"], c: MT, hi: false },
@@ -441,7 +478,7 @@
       <div style="font-family:'Syne',sans-serif;font-size:10px;color:${G};letter-spacing:.1em;text-transform:uppercase;margin-bottom:13px;font-weight:600">First Milestones</div>
       ${["5,000 waitlist signups before launch", "1,000 GitHub stars in first month", "100 Pro subscribers by month 3", "$1K MRR by end of month 4"].map(m => `
       <div style="display:flex;gap:9px;margin-bottom:8px;align-items:flex-start">
-        <span style="color:${G};flex-shrink:0">→</span>
+        <span style="color:${G};flex-shrink:0;display:inline-flex;align-items:center;justify-content:center">${icon("chevronRight", G, 12, 2.2)}</span>
         <span style="font-size:12px;color:#aaa">${m}</span>
       </div>`).join("")}`)}
       <div style="background:${G};border-radius:12px;padding:18px 22px;text-align:center">
