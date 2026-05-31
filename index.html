@@ -94,7 +94,19 @@
         { id: "exit", name: "Exit Strategy" },
         { id: "next", name: "Next Steps" }
     ];
-    let cur = 0, busy = false;
+    let cur = 0, busy = false, autoTimer = null;
+    const AUTO_MS_BY_SLIDE = {
+        cover: 10000,
+        hook: 22000,
+        problem: 15000,
+        gap: 14000,
+        competitive: 16000,
+        solution: 15000,
+        diffs: 16000,
+        biz: 15000,
+        exit: 16000,
+        next: 18000
+    };
 
     function badge(t, c = G) { return `<span style="display:inline-flex;align-items:center;align-self:flex-start;width:fit-content;background:${c}18;border:1px solid ${c}35;border-radius:20px;padding:4px 13px;color:${c};font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;font-family:'Syne',sans-serif">${t}</span>` }
     function card(html, gold = false, style = "") { return `<div style="background:${gold ? `${G}09` : `${S1}`};border:1px solid ${gold ? `${G}30` : BR};border-radius:14px;padding:22px;${style}">${html}</div>` }
@@ -126,6 +138,16 @@
     }
     function iconBox(name, color = G, bg = `${G}14`, border = `${G}2a`) {
         return `<span style="display:inline-flex;align-items:center;justify-content:center;width:20px;height:20px;border-radius:6px;background:${bg};border:1px solid ${border};flex-shrink:0">${icon(name, color, 12, 2)}</span>`;
+    }
+    function getAutoDelay() {
+        const id = SLIDES[cur]?.id;
+        return AUTO_MS_BY_SLIDE[id] || 15000;
+    }
+    function scheduleAutoAdvance() {
+        clearTimeout(autoTimer);
+        autoTimer = setTimeout(() => {
+            go(1);
+        }, getAutoDelay());
     }
 
     function renderCover() {
@@ -494,15 +516,16 @@
 
     function go(dir) {
         if (busy) return;
-        const next = cur + dir;
-        if (next < 0 || next >= N) return;
+        const next = (cur + dir + N) % N;
         busy = true;
         const el = document.getElementById("ld");
         el.style.opacity = 0;
-        el.style.transition = "opacity .25s ease";
+        el.style.transform = "translateY(8px)";
+        el.style.transition = "opacity .25s ease, transform .25s ease";
         setTimeout(() => {
             cur = next; render();
             el.style.opacity = 1;
+            el.style.transform = "translateY(0)";
             busy = false;
         }, 260);
     }
@@ -517,15 +540,20 @@
         d.innerHTML = SLIDES.map((_, i) => `<div onclick="if(!busy){cur=${i};render()}" style="width:${i === cur ? 22 : 6}px;height:4px;border-radius:2px;background:${i === cur ? G : "#1e1e1e"};cursor:pointer;transition:all .25s ease"></div>`).join("");
         document.getElementById("sname").textContent = SLIDES[cur].name;
         const pb = document.getElementById("pb"), nb = document.getElementById("nb");
-        pb.style.color = cur === 0 ? "#2a2a2a" : "#666";
-        pb.style.background = cur === 0 ? "#0a0a0a" : "#111";
-        nb.style.background = cur === N - 1 ? "#111" : G;
-        nb.style.color = cur === N - 1 ? "#2a2a2a" : "#000";
+        pb.style.color = "#666";
+        pb.style.background = "#111";
+        nb.style.background = G;
+        nb.style.color = "#000";
+        scheduleAutoAdvance();
     }
 
     document.addEventListener("keydown", e => {
         if (e.key === "ArrowRight" || e.key === "ArrowDown") go(1);
         if (e.key === "ArrowLeft" || e.key === "ArrowUp") go(-1);
+    });
+    document.addEventListener("visibilitychange", () => {
+        if (document.hidden) clearTimeout(autoTimer);
+        else scheduleAutoAdvance();
     });
 
     render();
