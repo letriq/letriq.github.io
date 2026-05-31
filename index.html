@@ -96,7 +96,7 @@
     ];
     let cur = 0, busy = false;
 
-    function badge(t, c = G) { return `<span style="display:inline-flex;align-items:center;background:${c}18;border:1px solid ${c}35;border-radius:20px;padding:4px 13px;color:${c};font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;font-family:'Syne',sans-serif">${t}</span>` }
+    function badge(t, c = G) { return `<span style="display:inline-flex;align-items:center;align-self:flex-start;width:fit-content;background:${c}18;border:1px solid ${c}35;border-radius:20px;padding:4px 13px;color:${c};font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;font-family:'Syne',sans-serif">${t}</span>` }
     function card(html, gold = false, style = "") { return `<div style="background:${gold ? `${G}09` : `${S1}`};border:1px solid ${gold ? `${G}30` : BR};border-radius:14px;padding:22px;${style}">${html}</div>` }
     function dot(c = G) { return `<span style="display:inline-block;width:6px;height:6px;border-radius:50%;background:${c};flex-shrink:0;margin-top:7px"></span>` }
     function h2(txt) { return `<h2 style="font-family:'Syne',sans-serif;font-size:clamp(26px,3.2vw,44px);font-weight:800;line-height:1.05;color:${TX};letter-spacing:-.03em;margin-bottom:8px">${txt}</h2>` }
