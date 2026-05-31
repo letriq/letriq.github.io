@@ -1,111 +1,136 @@
-<style>
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Letriq</title>
+
+
+  <link rel="icon" type="image/png" href="/assets/favicon-96x96.png?v=20260531" sizes="96x96" />
+  <link rel="icon" type="image/svg+xml" href="/assets/favicon.svg?v=20260531" />
+  <link rel="shortcut icon" href="/assets/favicon.ico?v=20260531" />
+  <link rel="apple-touch-icon" sizes="180x180" href="/assets/apple-touch-icon.png?v=20260531" />
+  <meta name="apple-mobile-web-app-title" content="Letriq" />
+  <link rel="manifest" href="/assets/site.webmanifest?v=20260531" />
+
+
+  <style>
     @import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Epilogue:ital,wght@0,300;0,400;0,500;1,300&family=Cairo:wght@400;600;700&display=swap');
 
     #ld {
-        font-family: 'Epilogue', sans-serif;
-        background: #080808;
-        color: #F0EDE8;
-        min-height: 100vh;
-        position: relative;
-        overflow: hidden;
-        display: flex;
-        flex-direction: column
+      font-family: 'Epilogue', sans-serif;
+      background: #080808;
+      color: #F0EDE8;
+      min-height: 100vh;
+      position: relative;
+      overflow: hidden;
+      display: flex;
+      flex-direction: column
     }
 
     .s {
-        min-height: calc(100vh - 52px);
-        padding: 48px 56px 20px;
-        display: flex;
-        flex-direction: column;
-        justify-content: center;
-        position: relative;
-        overflow: hidden
+      min-height: calc(100vh - 52px);
+      padding: 48px 56px 20px;
+      display: flex;
+      flex-direction: column;
+      justify-content: center;
+      position: relative;
+      overflow: hidden
     }
 
     .syne {
-        font-family: 'Syne', sans-serif
+      font-family: 'Syne', sans-serif
     }
 
     .cairo {
-        font-family: 'Cairo', Tahoma, Arial, sans-serif
+      font-family: 'Cairo', Tahoma, Arial, sans-serif
     }
 
     @keyframes fu {
-        from {
-            opacity: 0;
-            transform: translateY(12px)
-        }
+      from {
+        opacity: 0;
+        transform: translateY(12px)
+      }
 
-        to {
-            opacity: 1;
-            transform: translateY(0)
-        }
+      to {
+        opacity: 1;
+        transform: translateY(0)
+      }
     }
 
     .fi {
-        animation: fu .38s ease forwards
+      animation: fu .38s ease forwards
     }
 
     * {
-        box-sizing: border-box;
-        margin: 0;
-        padding: 0
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0
     }
 
     table {
-        border-collapse: collapse;
-        width: 100%
+      border-collapse: collapse;
+      width: 100%
     }
 
     button {
-        cursor: pointer;
-        font-family: inherit
+      cursor: pointer;
+      font-family: inherit
     }
 
     ::-webkit-scrollbar {
-        display: none
+      display: none
     }
-</style>
-<div id="ld"></div>
-<div id="nav"
+  </style>
+  <div id="ld"></div>
+  <div id="nav"
     style="position:fixed;bottom:0;left:0;right:0;padding:10px 56px;display:flex;align-items:center;justify-content:space-between;background:linear-gradient(to top,rgba(8,8,8,.98) 60%,transparent);z-index:99">
     <div id="dots" style="display:flex;gap:5px;align-items:center"></div>
     <div id="sname"
-        style="font-family:'Syne',sans-serif;font-size:10px;color:#333;letter-spacing:.1em;text-transform:uppercase">
+      style="font-family:'Syne',sans-serif;font-size:10px;color:#333;letter-spacing:.1em;text-transform:uppercase">
     </div>
     <div style="display:flex;gap:8px">
-        <button id="pb" onclick="go(-1)"
-            style="width:30px;height:30px;border-radius:50%;background:#111;border:1px solid #1e1e1e;color:#555;font-size:14px;display:flex;align-items:center;justify-content:center"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m15 18-6-6 6-6" /></svg></button>
-        <button id="nb" onclick="go(1)"
-            style="width:30px;height:30px;border-radius:50%;background:#F0B429;border:none;color:#000;font-size:14px;display:flex;align-items:center;justify-content:center;font-weight:700"><svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true"><path d="m9 18 6-6-6-6" /></svg></button>
+      <button id="pb" onclick="go(-1)"
+        style="width:30px;height:30px;border-radius:50%;background:#111;border:1px solid #1e1e1e;color:#555;font-size:14px;display:flex;align-items:center;justify-content:center"><svg
+          width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
+          stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="m15 18-6-6 6-6" />
+        </svg></button>
+      <button id="nb" onclick="go(1)"
+        style="width:30px;height:30px;border-radius:50%;background:#F0B429;border:none;color:#000;font-size:14px;display:flex;align-items:center;justify-content:center;font-weight:700"><svg
+          width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
+          stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+          <path d="m9 18 6-6-6-6" />
+        </svg></button>
     </div>
-</div>
-<script>
+  </div>
+  <script>
     const G = "#F0B429", RU = "#D95C38", GR = "#3DAA68", BG = "#080808", S1 = "#0f0f0f", BR = "#1e1e1e", TX = "#F0EDE8", MT = "#555550";
     const SLIDES = [
-        { id: "cover", name: "Cover" },
-        { id: "hook", name: "The Hook" },
-        { id: "problem", name: "Problem" },
-        { id: "gap", name: "Market Gap" },
-        { id: "competitive", name: "Competitive" },
-        { id: "solution", name: "Solution" },
-        { id: "diffs", name: "Differentiators" },
-        { id: "biz", name: "Business Model" },
-        { id: "exit", name: "Exit Strategy" },
-        { id: "next", name: "Next Steps" }
+      { id: "cover", name: "Cover" },
+      { id: "hook", name: "The Hook" },
+      { id: "problem", name: "Problem" },
+      { id: "gap", name: "Market Gap" },
+      { id: "competitive", name: "Competitive" },
+      { id: "solution", name: "Solution" },
+      { id: "diffs", name: "Differentiators" },
+      { id: "biz", name: "Business Model" },
+      { id: "exit", name: "Exit Strategy" },
+      { id: "next", name: "Next Steps" }
     ];
     let cur = 0, busy = false, autoTimer = null;
     const AUTO_MS_BY_SLIDE = {
-        cover: 10000,
-        hook: 22000,
-        problem: 15000,
-        gap: 14000,
-        competitive: 16000,
-        solution: 15000,
-        diffs: 16000,
-        biz: 15000,
-        exit: 16000,
-        next: 18000
+      cover: 10000,
+      hook: 22000,
+      problem: 15000,
+      gap: 14000,
+      competitive: 16000,
+      solution: 15000,
+      diffs: 16000,
+      biz: 15000,
+      exit: 16000,
+      next: 18000
     };
 
     function badge(t, c = G) { return `<span style="display:inline-flex;align-items:center;align-self:flex-start;width:fit-content;background:${c}18;border:1px solid ${c}35;border-radius:20px;padding:4px 13px;color:${c};font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;font-family:'Syne',sans-serif">${t}</span>` }
@@ -115,43 +140,43 @@
     function gold(t) { return `<span style="color:${G}">${t}</span>` }
     function rust(t) { return `<span style="color:${RU}">${t}</span>` }
     function icon(name, color = "currentColor", size = 16, stroke = 1.9) {
-        const common = `width="${size}" height="${size}" viewBox="0 0 24 24" fill="none" stroke="${color}" stroke-width="${stroke}" stroke-linecap="round" stroke-linejoin="round"`;
-        const paths = {
-            chevronRight: `<path d="m9 18 6-6-6-6"/>`,
-            lightbulb: `<path d="M9 18h6"/><path d="M10 22h4"/><path d="M12 2a7 7 0 0 0-4 12.8c.8.6 1.2 1.6 1.2 2.6V18h5.6v-.6c0-1 .4-2 1.2-2.6A7 7 0 0 0 12 2Z"/>`,
-            cpu: `<rect x="7" y="7" width="10" height="10" rx="2"/><path d="M12 7V4M12 20v-3M7 12H4M20 12h-3M17 7l2-2M5 19l2-2M17 17l2 2M5 5l2 2"/>`,
-            image: `<rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="9" cy="10" r="1.5"/><path d="m21 16-5-4-4 3-2-1.5L3 19"/>`,
-            refresh: `<path d="M21 2v6h-6"/><path d="M3 22v-6h6"/><path d="M20.5 13A8 8 0 0 0 7 5.2L3 8"/><path d="M3.5 11A8 8 0 0 0 17 18.8L21 16"/>`,
-            coin: `<circle cx="12" cy="12" r="9"/><path d="M12 7v10"/><path d="M15 9.5c0-1.1-1.3-2-3-2s-3 .9-3 2 1.3 2 3 2 3 .9 3 2-1.3 2-3 2-3-.9-3-2"/>`,
-            clock: `<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>`,
-            check: `<path d="m6 12 4 4 8-8"/>`,
-            close: `<path d="m18 6-12 12"/><path d="m6 6 12 12"/>`,
-            minus: `<path d="M6 12h12"/>`,
-            sparkles: `<path d="M12 3 13.8 8.2 19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8L12 3Z"/><path d="m19 3 .8 2.2L22 6l-2.2.8L19 9l-.8-2.2L16 6l2.2-.8L19 3Z"/><path d="m5 15 .8 2.2L8 18l-2.2.8L5 21l-.8-2.2L2 18l2.2-.8L5 15Z"/>`,
-            monogram: `<rect x="4" y="4" width="16" height="16" rx="3"/><path d="M9 9h6v6H9z"/>`,
-            palette: `<path d="M12 3a9 9 0 1 0 0 18h1.2a2.3 2.3 0 0 0 0-4.6H11a2.5 2.5 0 0 1 0-5h5a5 5 0 0 0 0-10h-4Z"/><circle cx="7.5" cy="10.5" r="1"/><circle cx="10" cy="7.5" r="1"/><circle cx="14.5" cy="7.5" r="1"/><circle cx="16.5" cy="11" r="1"/>`,
-            external: `<path d="M14 4h6v6"/><path d="m10 14 10-10"/><path d="M20 14v4a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h4"/>`,
-            code: `<path d="m9 18-6-6 6-6"/><path d="m15 6 6 6-6 6"/><path d="m14 4-4 16"/>`,
-            card: `<rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 10h18"/><path d="M7 15h4"/>`
-        };
-        return `<svg ${common} aria-hidden="true" focusable="false">${paths[name] || ""}</svg>`;
+      const common = `width="${size}" height="${size}" viewBox="0 0 24 24" fill="none" stroke="${color}" stroke-width="${stroke}" stroke-linecap="round" stroke-linejoin="round"`;
+      const paths = {
+        chevronRight: `<path d="m9 18 6-6-6-6"/>`,
+        lightbulb: `<path d="M9 18h6"/><path d="M10 22h4"/><path d="M12 2a7 7 0 0 0-4 12.8c.8.6 1.2 1.6 1.2 2.6V18h5.6v-.6c0-1 .4-2 1.2-2.6A7 7 0 0 0 12 2Z"/>`,
+        cpu: `<rect x="7" y="7" width="10" height="10" rx="2"/><path d="M12 7V4M12 20v-3M7 12H4M20 12h-3M17 7l2-2M5 19l2-2M17 17l2 2M5 5l2 2"/>`,
+        image: `<rect x="3" y="4" width="18" height="16" rx="2"/><circle cx="9" cy="10" r="1.5"/><path d="m21 16-5-4-4 3-2-1.5L3 19"/>`,
+        refresh: `<path d="M21 2v6h-6"/><path d="M3 22v-6h6"/><path d="M20.5 13A8 8 0 0 0 7 5.2L3 8"/><path d="M3.5 11A8 8 0 0 0 17 18.8L21 16"/>`,
+        coin: `<circle cx="12" cy="12" r="9"/><path d="M12 7v10"/><path d="M15 9.5c0-1.1-1.3-2-3-2s-3 .9-3 2 1.3 2 3 2 3 .9 3 2-1.3 2-3 2-3-.9-3-2"/>`,
+        clock: `<circle cx="12" cy="12" r="9"/><path d="M12 7v5l3 2"/>`,
+        check: `<path d="m6 12 4 4 8-8"/>`,
+        close: `<path d="m18 6-12 12"/><path d="m6 6 12 12"/>`,
+        minus: `<path d="M6 12h12"/>`,
+        sparkles: `<path d="M12 3 13.8 8.2 19 10l-5.2 1.8L12 17l-1.8-5.2L5 10l5.2-1.8L12 3Z"/><path d="m19 3 .8 2.2L22 6l-2.2.8L19 9l-.8-2.2L16 6l2.2-.8L19 3Z"/><path d="m5 15 .8 2.2L8 18l-2.2.8L5 21l-.8-2.2L2 18l2.2-.8L5 15Z"/>`,
+        monogram: `<rect x="4" y="4" width="16" height="16" rx="3"/><path d="M9 9h6v6H9z"/>`,
+        palette: `<path d="M12 3a9 9 0 1 0 0 18h1.2a2.3 2.3 0 0 0 0-4.6H11a2.5 2.5 0 0 1 0-5h5a5 5 0 0 0 0-10h-4Z"/><circle cx="7.5" cy="10.5" r="1"/><circle cx="10" cy="7.5" r="1"/><circle cx="14.5" cy="7.5" r="1"/><circle cx="16.5" cy="11" r="1"/>`,
+        external: `<path d="M14 4h6v6"/><path d="m10 14 10-10"/><path d="M20 14v4a2 2 0 0 1-2 2H6a2 2 0 0 1-2-2V6a2 2 0 0 1 2-2h4"/>`,
+        code: `<path d="m9 18-6-6 6-6"/><path d="m15 6 6 6-6 6"/><path d="m14 4-4 16"/>`,
+        card: `<rect x="3" y="5" width="18" height="14" rx="2"/><path d="M3 10h18"/><path d="M7 15h4"/>`
+      };
+      return `<svg ${common} aria-hidden="true" focusable="false">${paths[name] || ""}</svg>`;
     }
     function iconBox(name, color = G, bg = `${G}14`, border = `${G}2a`) {
-        return `<span style="display:inline-flex;align-items:center;justify-content:center;width:20px;height:20px;border-radius:6px;background:${bg};border:1px solid ${border};flex-shrink:0">${icon(name, color, 12, 2)}</span>`;
+      return `<span style="display:inline-flex;align-items:center;justify-content:center;width:20px;height:20px;border-radius:6px;background:${bg};border:1px solid ${border};flex-shrink:0">${icon(name, color, 12, 2)}</span>`;
     }
     function getAutoDelay() {
-        const id = SLIDES[cur]?.id;
-        return AUTO_MS_BY_SLIDE[id] || 15000;
+      const id = SLIDES[cur]?.id;
+      return AUTO_MS_BY_SLIDE[id] || 15000;
     }
     function scheduleAutoAdvance() {
-        clearTimeout(autoTimer);
-        autoTimer = setTimeout(() => {
-            go(1);
-        }, getAutoDelay());
+      clearTimeout(autoTimer);
+      autoTimer = setTimeout(() => {
+        go(1);
+      }, getAutoDelay());
     }
 
     function renderCover() {
-        return `
+      return `
 <div class="s syne" style="position:relative">
   <div style="position:absolute;right:-40px;top:50%;transform:translateY(-50%);font-family:'Syne',sans-serif;font-size:clamp(240px,35vw,420px);font-weight:800;color:#111;line-height:1;user-select:none;pointer-events:none;letter-spacing:-.05em">L</div>
   <div style="position:absolute;inset:0;background-image:linear-gradient(${BR} 1px,transparent 1px),linear-gradient(90deg,${BR} 1px,transparent 1px);background-size:52px 52px;opacity:.3;pointer-events:none"></div>
@@ -173,7 +198,7 @@
 </div>`}
 
     function renderHook() {
-        return `
+      return `
 <div class="s" style="padding-top:36px">
   <div style="display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center;height:100%">
     <div dir="rtl" style="text-align:right">
@@ -203,11 +228,11 @@
       ${card(`<div style="font-size:10px;color:${MT};letter-spacing:.1em;text-transform:uppercase;margin-bottom:12px;font-family:'Syne',sans-serif">The Current Cycle</div>
       <div style="display:flex;flex-wrap:wrap;gap:6px;align-items:center;font-size:12px">
         ${[
-                { icon: "lightbulb", label: "Idea", tone: "#666", alert: false },
-                { icon: "cpu", label: "AI Tool", tone: "#666", alert: false },
-                { icon: "image", label: "Generic PNG", tone: "#666", alert: false },
-                { icon: "refresh", label: "Back to zero", tone: RU, alert: true }
-            ].map((t, i, arr) => `
+          { icon: "lightbulb", label: "Idea", tone: "#666", alert: false },
+          { icon: "cpu", label: "AI Tool", tone: "#666", alert: false },
+          { icon: "image", label: "Generic PNG", tone: "#666", alert: false },
+          { icon: "refresh", label: "Back to zero", tone: RU, alert: true }
+        ].map((t, i, arr) => `
             <span style="display:inline-flex;align-items:center;gap:6px;background:${BG};border:1px solid ${BR};border-radius:6px;padding:5px 10px;color:${t.tone};font-size:12px">${icon(t.icon, t.alert ? RU : "#8a8a8a", 13, 1.9)} ${t.label}</span>
             ${i < arr.length - 1 ? `<span style="display:inline-flex;align-items:center;justify-content:center;color:#2a2a2a">${icon("chevronRight", "#2a2a2a", 14, 2.2)}</span>` : ""}`).join("")}
       </div>`)}
@@ -216,7 +241,7 @@
 </div>`}
 
     function renderProblem() {
-        return `
+      return `
 <div class="s">
   ${badge("The Problem", RU)}
   <div style="height:16px"></div>
@@ -224,10 +249,10 @@
   <p style="color:${MT};margin-bottom:28px;font-size:14px">Brand identity is a bottleneck that kills momentum before launch.</p>
   <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px">
     ${[
-                { e: "coin", t: "Cost Barrier", d: "Professional brand identity costs $300–$2,000+. Looka alone charges $65–$192/year. Early-stage founders either skip it entirely or get stuck.", n: "$300–2K", l: "avg. brand identity cost", c: RU },
-                { e: "cpu", t: "AI Disappointment", d: "General AI tools (Midjourney, DALL-E) produce raster images — not brand systems. Output is uncreative, non-scalable, and can't be used professionally.", n: "0", l: "free AI tools specialized for brand identity", c: RU },
-                { e: "clock", t: "Freelancer Friction", d: "Freelancers take 3–7 days minimum. Revisions add weeks. Brand identity becomes a launch blocker, not an enabler.", n: "3–7 days", l: "avg. freelancer turnaround", c: RU }
-            ].map(p => `
+          { e: "coin", t: "Cost Barrier", d: "Professional brand identity costs $300–$2,000+. Looka alone charges $65–$192/year. Early-stage founders either skip it entirely or get stuck.", n: "$300–2K", l: "avg. brand identity cost", c: RU },
+          { e: "cpu", t: "AI Disappointment", d: "General AI tools (Midjourney, DALL-E) produce raster images — not brand systems. Output is uncreative, non-scalable, and can't be used professionally.", n: "0", l: "free AI tools specialized for brand identity", c: RU },
+          { e: "clock", t: "Freelancer Friction", d: "Freelancers take 3–7 days minimum. Revisions add weeks. Brand identity becomes a launch blocker, not an enabler.", n: "3–7 days", l: "avg. freelancer turnaround", c: RU }
+        ].map(p => `
     <div style="background:${S1};border:1px solid ${BR};border-radius:14px;padding:22px;display:flex;flex-direction:column;gap:12px">
       <div style="display:inline-flex;width:38px;height:38px;border-radius:10px;background:${RU}16;border:1px solid ${RU}32;align-items:center;justify-content:center">${icon(p.e, RU, 19, 2)}</div>
       <h3 style="font-family:'Syne',sans-serif;font-size:15px;font-weight:700;color:${TX}">${p.t}</h3>
@@ -241,8 +266,8 @@
 </div>`}
 
     function renderGap() {
-        const pts = [{ n: "Looka", x: 78, y: 62 }, { n: "Brandmark", x: 61, y: 44 }, { n: "Canva", x: 44, y: 20 }, { n: "Midjourney", x: 50, y: 11 }, { n: "Freelancers", x: 88, y: 77 }, { n: "Letriq", x: 10, y: 87, star: true }];
-        return `
+      const pts = [{ n: "Looka", x: 78, y: 62 }, { n: "Brandmark", x: 61, y: 44 }, { n: "Canva", x: 44, y: 20 }, { n: "Midjourney", x: 50, y: 11 }, { n: "Freelancers", x: 88, y: 77 }, { n: "Letriq", x: 10, y: 87, star: true }];
+      return `
 <div class="s">
   <div style="display:grid;grid-template-columns:1fr 1fr;gap:44px;align-items:center">
     <div>
@@ -280,22 +305,22 @@
 </div>`}
 
     function renderCompetitive() {
-        const COLS = ["Looka", "Canva", "Brandmark", "Midjourney", "Letriq"];
-        const ROWS = [
-            { l: "Free Tier", v: [false, "limited", false, false, true] },
-            { l: "Vector Export (Free)", v: [false, false, false, false, true] },
-            { l: "Wordmark Focused", v: ["~", false, "~", false, true] },
-            { l: "Full Brand System", v: ["$", false, "$", false, true] },
-            { l: "Open Source", v: [false, false, false, false, true] },
-            { l: "Developer API", v: ["$", "$", false, "$", true] }
-        ];
-        function cell(v, gold) {
-            if (v === true) return `<div style="width:20px;height:20px;border-radius:50%;background:${gold ? G : GR};display:flex;align-items:center;justify-content:center;margin:auto;color:${gold ? "#000" : "#fff"}">${icon("check", "currentColor", 12, 2.4)}</div>`;
-            if (v === false) return `<div style="width:20px;height:20px;border-radius:50%;background:#181818;display:flex;align-items:center;justify-content:center;margin:auto;color:#2a2a2a">${icon("close", "currentColor", 12, 2.2)}</div>`;
-            if (v === "~") return `<div style="width:20px;height:20px;border-radius:50%;background:#1a1900;display:flex;align-items:center;justify-content:center;margin:auto;color:#6a5200">${icon("minus", "currentColor", 12, 2.2)}</div>`;
-            return `<div style="display:flex;align-items:center;justify-content:center;gap:4px;font-size:11px;color:#444">${icon("card", "#555", 12, 1.9)} paid</div>`;
-        }
-        return `
+      const COLS = ["Looka", "Canva", "Brandmark", "Midjourney", "Letriq"];
+      const ROWS = [
+        { l: "Free Tier", v: [false, "limited", false, false, true] },
+        { l: "Vector Export (Free)", v: [false, false, false, false, true] },
+        { l: "Wordmark Focused", v: ["~", false, "~", false, true] },
+        { l: "Full Brand System", v: ["$", false, "$", false, true] },
+        { l: "Open Source", v: [false, false, false, false, true] },
+        { l: "Developer API", v: ["$", "$", false, "$", true] }
+      ];
+      function cell(v, gold) {
+        if (v === true) return `<div style="width:20px;height:20px;border-radius:50%;background:${gold ? G : GR};display:flex;align-items:center;justify-content:center;margin:auto;color:${gold ? "#000" : "#fff"}">${icon("check", "currentColor", 12, 2.4)}</div>`;
+        if (v === false) return `<div style="width:20px;height:20px;border-radius:50%;background:#181818;display:flex;align-items:center;justify-content:center;margin:auto;color:#2a2a2a">${icon("close", "currentColor", 12, 2.2)}</div>`;
+        if (v === "~") return `<div style="width:20px;height:20px;border-radius:50%;background:#1a1900;display:flex;align-items:center;justify-content:center;margin:auto;color:#6a5200">${icon("minus", "currentColor", 12, 2.2)}</div>`;
+        return `<div style="display:flex;align-items:center;justify-content:center;gap:4px;font-size:11px;color:#444">${icon("card", "#555", 12, 1.9)} paid</div>`;
+      }
+      return `
 <div class="s">
   ${badge("Competitive Analysis")}
   <div style="height:14px"></div>
@@ -315,16 +340,16 @@
   </table>
   <div style="margin-top:14px;display:flex;gap:16px;flex-wrap:wrap">
     ${[
-            { i: iconBox("check", GR, `${GR}14`, `${GR}30`), l: "Available", c: GR },
-            { i: iconBox("minus", "#886600", "#1a1900", "#3a2d00"), l: "Partial", c: "#886600" },
-            { i: iconBox("card", MT, "#151515", "#2c2c2c"), l: "Paid only", c: MT },
-            { i: iconBox("close", "#333", "#171717", "#242424"), l: "Not available", c: "#333" }
+          { i: iconBox("check", GR, `${GR}14`, `${GR}30`), l: "Available", c: GR },
+          { i: iconBox("minus", "#886600", "#1a1900", "#3a2d00"), l: "Partial", c: "#886600" },
+          { i: iconBox("card", MT, "#151515", "#2c2c2c"), l: "Paid only", c: MT },
+          { i: iconBox("close", "#333", "#171717", "#242424"), l: "Not available", c: "#333" }
         ].map(x => `<div style="display:flex;align-items:center;gap:6px;font-size:11px;color:${x.c}">${x.i}<span>${x.l}</span></div>`).join("")}
   </div>
 </div>`}
 
     function renderSolution() {
-        return `
+      return `
 <div class="s">
   <div style="display:grid;grid-template-columns:1fr 1.4fr;gap:40px;align-items:center">
     <div>
@@ -335,12 +360,12 @@
     </div>
     <div style="display:flex;flex-direction:column;gap:9px">
       ${[
-                { i: "sparkles", t: "AI Wordmark Generator", d: `Type brand name + describe the vibe ${icon("chevronRight", "#777", 12, 2.1)} multiple styled wordmarks in seconds` },
-                { i: "monogram", t: "Lettermark System", d: "Monogram and initials-based logo marks with full variation sets" },
-                { i: "palette", t: "Brand System Builder", d: "Auto-generate color palette, typography pairing, spacing + usage rules" },
-                { i: "external", t: "Vector Export Engine", d: "SVG, PDF, and AI files — not PNG screenshots. Professional and scalable." },
-                { i: "code", t: "Open-Source Core", d: "Community-driven, customizable, integrable. Free tier that actually works." }
-            ].map(f => `
+          { i: "sparkles", t: "AI Wordmark Generator", d: `Type brand name + describe the vibe ${icon("chevronRight", "#777", 12, 2.1)} multiple styled wordmarks in seconds` },
+          { i: "monogram", t: "Lettermark System", d: "Monogram and initials-based logo marks with full variation sets" },
+          { i: "palette", t: "Brand System Builder", d: "Auto-generate color palette, typography pairing, spacing + usage rules" },
+          { i: "external", t: "Vector Export Engine", d: "SVG, PDF, and AI files — not PNG screenshots. Professional and scalable." },
+          { i: "code", t: "Open-Source Core", d: "Community-driven, customizable, integrable. Free tier that actually works." }
+        ].map(f => `
       <div style="display:flex;gap:14px;align-items:flex-start;background:${S1};border:1px solid ${BR};border-radius:11px;padding:13px 16px">
         <div style="display:inline-flex;align-items:center;justify-content:center;width:24px;height:24px;border-radius:7px;background:${G}12;border:1px solid ${G}30;color:${G};flex-shrink:0;margin-top:1px">${icon(f.i, G, 14, 2)}</div>
         <div>
@@ -353,7 +378,7 @@
 </div>`}
 
     function renderDiffs() {
-        return `
+      return `
 <div class="s">
   ${badge("Differentiators")}
   <div style="height:14px"></div>
@@ -361,13 +386,13 @@
   <p style="color:${MT};margin-bottom:24px;font-size:13px">Each one is hard to replicate. Together, they compound into a moat.</p>
   <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px">
     ${[
-                { b: "Trust Moat", t: "Open Source", d: "Community trust. No lock-in. Anyone can audit, fork, or contribute — impossible to replicate through money alone.", c: GR },
-                { b: "Better Output", t: "Typography-First", d: "Wordmarks age better, scale to any size, and look more professional than illustrative logos. We specialize where AI excels.", c: G },
-                { b: "Complete Product", t: "Full Brand System", d: "Not just a logo. Colors, typography, spacing, usage rules — all in one export. Competitors charge $65+ for this.", c: "#7B68EE" },
-                { b: "Pro Quality", t: "Vector-Native", d: "Real SVG and AI files. Not low-res PNGs. Every export is production-ready and infinitely scalable.", c: G },
-                { b: "Growth Engine", t: "Zero Cost Barrier", d: "Free tier that genuinely works. Maximum user acquisition, community growth, and organic word-of-mouth.", c: GR },
-                { b: "B2B Revenue", t: "Developer API", d: "REST API for agencies and SaaS builders. A B2B layer that's very difficult for competitors to copy.", c: RU }
-            ].map(d => `
+          { b: "Trust Moat", t: "Open Source", d: "Community trust. No lock-in. Anyone can audit, fork, or contribute — impossible to replicate through money alone.", c: GR },
+          { b: "Better Output", t: "Typography-First", d: "Wordmarks age better, scale to any size, and look more professional than illustrative logos. We specialize where AI excels.", c: G },
+          { b: "Complete Product", t: "Full Brand System", d: "Not just a logo. Colors, typography, spacing, usage rules — all in one export. Competitors charge $65+ for this.", c: "#7B68EE" },
+          { b: "Pro Quality", t: "Vector-Native", d: "Real SVG and AI files. Not low-res PNGs. Every export is production-ready and infinitely scalable.", c: G },
+          { b: "Growth Engine", t: "Zero Cost Barrier", d: "Free tier that genuinely works. Maximum user acquisition, community growth, and organic word-of-mouth.", c: GR },
+          { b: "B2B Revenue", t: "Developer API", d: "REST API for agencies and SaaS builders. A B2B layer that's very difficult for competitors to copy.", c: RU }
+        ].map(d => `
     <div style="background:${S1};border:1px solid ${BR};border-top:3px solid ${d.c};border-radius:12px;padding:18px">
       <div style="display:inline-block;background:${d.c}14;color:${d.c};font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:3px 9px;border-radius:10px;margin-bottom:9px;font-family:'Syne',sans-serif">${d.b}</div>
       <h3 style="font-family:'Syne',sans-serif;font-size:14px;font-weight:700;color:${TX};margin-bottom:6px">${d.t}</h3>
@@ -377,7 +402,7 @@
 </div>`}
 
     function renderBiz() {
-        return `
+      return `
 <div class="s">
   ${badge("Business Model")}
   <div style="height:14px"></div>
@@ -385,11 +410,11 @@
   <p style="color:${MT};margin-bottom:22px;font-size:13px">Community-led growth ${icon("chevronRight", MT, 12, 2.1)} Pro conversion ${icon("chevronRight", MT, 12, 2.1)} B2B API layer.</p>
   <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:11px;margin-bottom:28px">
     ${[
-                { n: "Community", p: "Free", d: ["Basic exports", "Watermark commercial", "Community access"], c: MT, hi: false },
-                { n: "Pro", p: "$9/mo", d: ["Vector exports", "No watermark", "5 brand projects"], c: G, hi: true },
-                { n: "Studio", p: "$29/mo", d: ["Unlimited projects", "Team collaboration", "Brand hosting"], c: G, hi: false },
-                { n: "API", p: "$99/mo", d: ["REST API access", "100 gen/month", "White-label ready"], c: RU, hi: false }
-            ].map(t => `
+          { n: "Community", p: "Free", d: ["Basic exports", "Watermark commercial", "Community access"], c: MT, hi: false },
+          { n: "Pro", p: "$9/mo", d: ["Vector exports", "No watermark", "5 brand projects"], c: G, hi: true },
+          { n: "Studio", p: "$29/mo", d: ["Unlimited projects", "Team collaboration", "Brand hosting"], c: G, hi: false },
+          { n: "API", p: "$99/mo", d: ["REST API access", "100 gen/month", "White-label ready"], c: RU, hi: false }
+        ].map(t => `
     <div style="background:${t.hi ? `${G}0A` : S1};border:1px solid ${t.hi ? `${G}45` : BR};border-radius:12px;padding:16px 13px;text-align:center;position:relative">
       ${t.hi ? `<div style="position:absolute;top:-9px;left:50%;transform:translateX(-50%);background:${G};color:#000;font-size:9px;font-weight:700;padding:2px 9px;border-radius:9px;white-space:nowrap;font-family:'Syne',sans-serif">BEST VALUE</div>` : ""}
       <div style="font-family:'Syne',sans-serif;font-size:12px;font-weight:700;color:${t.c === MT ? "#777" : TX};margin-bottom:5px">${t.n}</div>
@@ -400,10 +425,10 @@
   <div style="position:relative;display:flex">
     <div style="position:absolute;top:18px;left:15%;right:15%;height:2px;background:${BR}"></div>
     ${[
-                { lb: "Month 6", m: "$4.5K MRR", s: "10K users · 500 Pro", c: "#3a3a3a" },
-                { lb: "Month 12", m: "$22K MRR", s: "50K users + API rev.", c: G },
-                { lb: "Month 18", m: "$50K MRR", s: "100K users · 5K Pro", c: GR }
-            ].map(m => `
+          { lb: "Month 6", m: "$4.5K MRR", s: "10K users · 500 Pro", c: "#3a3a3a" },
+          { lb: "Month 12", m: "$22K MRR", s: "50K users + API rev.", c: G },
+          { lb: "Month 18", m: "$50K MRR", s: "100K users · 5K Pro", c: GR }
+        ].map(m => `
     <div style="flex:1;text-align:center;position:relative;padding-top:38px">
       <div style="position:absolute;top:8px;left:50%;transform:translateX(-50%);width:20px;height:20px;border-radius:50%;background:${m.c};border:3px solid ${BG};z-index:1"></div>
       <div style="font-family:'Syne',sans-serif;font-size:17px;font-weight:700;color:${m.c}">${m.m}</div>
@@ -414,7 +439,7 @@
 </div>`}
 
     function renderExit() {
-        return `
+      return `
 <div class="s">
   <div style="display:grid;grid-template-columns:1fr 1fr;gap:36px;align-items:start">
     <div>
@@ -424,11 +449,11 @@
       <p style="color:${MT};margin-bottom:18px;font-size:13px;line-height:1.65">Open-source communities can't be cloned — they can only be grown or acquired. Every company below needs what Letriq is building.</p>
       <div style="display:flex;flex-direction:column;gap:9px">
         ${[
-                { n: "Adobe", w: "AI-native community tool for Creative Cloud. Open-source builds trust they can't manufacture.", v: "$$$$" },
-                { n: "Canva", w: "Fills their AI brand identity gap. 100K users = instant distribution network they'd pay premium for.", v: "$$$" },
-                { n: "Figma", w: "Brand system integration completes the design-to-production lifecycle naturally.", v: "$$$" },
-                { n: "Wix/Squarespace", w: "Built-in white-label brand tool for their web builder platforms.", v: "$$" }
-            ].map(a => `
+          { n: "Adobe", w: "AI-native community tool for Creative Cloud. Open-source builds trust they can't manufacture.", v: "$$$$" },
+          { n: "Canva", w: "Fills their AI brand identity gap. 100K users = instant distribution network they'd pay premium for.", v: "$$$" },
+          { n: "Figma", w: "Brand system integration completes the design-to-production lifecycle naturally.", v: "$$$" },
+          { n: "Wix/Squarespace", w: "Built-in white-label brand tool for their web builder platforms.", v: "$$" }
+        ].map(a => `
         <div style="display:flex;gap:12px;align-items:center;background:${S1};border:1px solid ${BR};border-radius:10px;padding:12px 14px">
           <div style="font-family:'Syne',sans-serif;font-size:13px;font-weight:700;color:${G};width:88px;flex-shrink:0">${a.n}</div>
           <div style="font-size:11px;color:${MT};line-height:1.5;flex:1">${a.w}</div>
@@ -441,12 +466,12 @@
       <div style="font-family:'Syne',sans-serif;font-size:10px;color:${G};letter-spacing:.1em;text-transform:uppercase;margin-bottom:16px;font-weight:600">Assets We're Building That Have Value</div>
       <div style="display:flex;flex-direction:column;gap:12px">
         ${[
-                    { l: "Open-Source Community", d: "Can't be cloned — must be grown or acquired" },
-                    { l: "Brand Identity Dataset", d: "Proprietary training data for future AI models" },
-                    { l: "Fine-Tuned AI Model", d: "Specialized wordmark generation technology" },
-                    { l: "Recurring Revenue Base", d: "Predictable SaaS MRR at acquisition time" },
-                    { l: "Developer Ecosystem", d: "API users and white-label integrations" }
-                ].map(a => `
+            { l: "Open-Source Community", d: "Can't be cloned — must be grown or acquired" },
+            { l: "Brand Identity Dataset", d: "Proprietary training data for future AI models" },
+            { l: "Fine-Tuned AI Model", d: "Specialized wordmark generation technology" },
+            { l: "Recurring Revenue Base", d: "Predictable SaaS MRR at acquisition time" },
+            { l: "Developer Ecosystem", d: "API users and white-label integrations" }
+          ].map(a => `
         <div style="display:flex;gap:10px;align-items:flex-start">
           <span style="width:6px;height:6px;border-radius:50%;background:${G};flex-shrink:0;margin-top:6px;display:inline-block"></span>
           <div>
@@ -463,14 +488,14 @@
 </div>`}
 
     function renderNext() {
-        const tl = [
-            { w: "Wk 1–2", t: "Architecture", d: "AI model approach, tech stack, open-source repo setup", hi: false },
-            { w: "Wk 3–6", t: "Core MVP", d: "AI wordmark generator + basic UI + internal testing", hi: false },
-            { w: "Wk 7–8", t: "Brand System", d: "Auto-color, type pairing, vector export engine", hi: false },
-            { w: "Wk 9", t: "Beta Launch", d: "Open-source repo public, waitlist activation", hi: true },
-            { w: "Wk 10–12", t: "Grow", d: "Community feedback loop, first 1K users", hi: false }
-        ];
-        return `
+      const tl = [
+        { w: "Wk 1–2", t: "Architecture", d: "AI model approach, tech stack, open-source repo setup", hi: false },
+        { w: "Wk 3–6", t: "Core MVP", d: "AI wordmark generator + basic UI + internal testing", hi: false },
+        { w: "Wk 7–8", t: "Brand System", d: "Auto-color, type pairing, vector export engine", hi: false },
+        { w: "Wk 9", t: "Beta Launch", d: "Open-source repo public, waitlist activation", hi: true },
+        { w: "Wk 10–12", t: "Grow", d: "Community feedback loop, first 1K users", hi: false }
+      ];
+      return `
 <div class="s">
   <div style="display:grid;grid-template-columns:1fr 1.1fr;gap:36px;align-items:start">
     <div>
@@ -515,46 +540,53 @@
     const N = SLIDES.length;
 
     function go(dir) {
-        if (busy) return;
-        const next = (cur + dir + N) % N;
-        busy = true;
-        const el = document.getElementById("ld");
-        el.style.opacity = 0;
-        el.style.transform = "translateY(8px)";
-        el.style.transition = "opacity .25s ease, transform .25s ease";
-        setTimeout(() => {
-            cur = next; render();
-            el.style.opacity = 1;
-            el.style.transform = "translateY(0)";
-            busy = false;
-        }, 260);
+      if (busy) return;
+      const next = (cur + dir + N) % N;
+      busy = true;
+      const el = document.getElementById("ld");
+      el.style.opacity = 0;
+      el.style.transform = "translateY(8px)";
+      el.style.transition = "opacity .25s ease, transform .25s ease";
+      setTimeout(() => {
+        cur = next; render();
+        el.style.opacity = 1;
+        el.style.transform = "translateY(0)";
+        busy = false;
+      }, 260);
     }
 
     function render() {
-        const el = document.getElementById("ld");
-        el.innerHTML = RENDERS[cur]();
-        el.classList.add("fi");
-        setTimeout(() => el.classList.remove("fi"), 400);
-        // dots
-        const d = document.getElementById("dots");
-        d.innerHTML = SLIDES.map((_, i) => `<div onclick="if(!busy){cur=${i};render()}" style="width:${i === cur ? 22 : 6}px;height:4px;border-radius:2px;background:${i === cur ? G : "#1e1e1e"};cursor:pointer;transition:all .25s ease"></div>`).join("");
-        document.getElementById("sname").textContent = SLIDES[cur].name;
-        const pb = document.getElementById("pb"), nb = document.getElementById("nb");
-        pb.style.color = "#666";
-        pb.style.background = "#111";
-        nb.style.background = G;
-        nb.style.color = "#000";
-        scheduleAutoAdvance();
+      const el = document.getElementById("ld");
+      el.innerHTML = RENDERS[cur]();
+      el.classList.add("fi");
+      setTimeout(() => el.classList.remove("fi"), 400);
+      // dots
+      const d = document.getElementById("dots");
+      d.innerHTML = SLIDES.map((_, i) => `<div onclick="if(!busy){cur=${i};render()}" style="width:${i === cur ? 22 : 6}px;height:4px;border-radius:2px;background:${i === cur ? G : "#1e1e1e"};cursor:pointer;transition:all .25s ease"></div>`).join("");
+      document.getElementById("sname").textContent = SLIDES[cur].name;
+      const pb = document.getElementById("pb"), nb = document.getElementById("nb");
+      pb.style.color = "#666";
+      pb.style.background = "#111";
+      nb.style.background = G;
+      nb.style.color = "#000";
+      scheduleAutoAdvance();
     }
 
     document.addEventListener("keydown", e => {
-        if (e.key === "ArrowRight" || e.key === "ArrowDown") go(1);
-        if (e.key === "ArrowLeft" || e.key === "ArrowUp") go(-1);
+      if (e.key === "ArrowRight" || e.key === "ArrowDown") go(1);
+      if (e.key === "ArrowLeft" || e.key === "ArrowUp") go(-1);
     });
     document.addEventListener("visibilitychange", () => {
-        if (document.hidden) clearTimeout(autoTimer);
-        else scheduleAutoAdvance();
+      if (document.hidden) clearTimeout(autoTimer);
+      else scheduleAutoAdvance();
     });
 
     render();
-</script>
+  </script>
+</head>
+
+<body>
+
+</body>
+
+</html>
