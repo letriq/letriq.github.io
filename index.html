@@ -31,7 +31,7 @@
 
     .s {
       min-height: calc(100vh - 52px);
-      padding: 48px 56px 20px;
+      padding: 48px 56px 96px;
       display: flex;
       flex-direction: column;
       justify-content: center;
@@ -85,21 +85,21 @@
   </style>
   <div id="ld"></div>
   <div id="nav"
-    style="position:fixed;bottom:0;left:0;right:0;padding:10px 56px;display:flex;align-items:center;justify-content:space-between;background:linear-gradient(to top,rgba(8,8,8,.98) 60%,transparent);z-index:99">
-    <div id="dots" style="display:flex;gap:5px;align-items:center"></div>
+    style="position:fixed;left:50%;bottom:14px;transform:translateX(-50%);width:min(560px,calc(100vw - 28px));padding:10px 14px 12px;display:flex;flex-direction:column;align-items:center;gap:10px;background:transparent;border:none;border-radius:0;backdrop-filter:none;z-index:99">
+    <div id="dots" style="display:flex;gap:6px;align-items:center;justify-content:center;min-height:10px"></div>
     <div id="sname"
-      style="font-family:'Syne',sans-serif;font-size:10px;color:#333;letter-spacing:.1em;text-transform:uppercase">
+      style="font-family:'Syne',sans-serif;font-size:10px;color:#4a4a4a;letter-spacing:.1em;text-transform:uppercase;text-align:center">
     </div>
-    <div style="display:flex;gap:8px">
+    <div style="display:flex;gap:12px;align-items:center;justify-content:center">
       <button id="pb" onclick="go(-1)"
-        style="width:30px;height:30px;border-radius:50%;background:#111;border:1px solid #1e1e1e;color:#555;font-size:14px;display:flex;align-items:center;justify-content:center"><svg
-          width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
+        style="width:52px;height:52px;border-radius:50%;background:#111;border:1px solid #1e1e1e;color:#666;display:flex;align-items:center;justify-content:center;touch-action:manipulation"><svg
+          width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
           stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
           <path d="m15 18-6-6 6-6" />
         </svg></button>
       <button id="nb" onclick="go(1)"
-        style="width:30px;height:30px;border-radius:50%;background:#F0B429;border:none;color:#000;font-size:14px;display:flex;align-items:center;justify-content:center;font-weight:700"><svg
-          width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
+        style="width:52px;height:52px;border-radius:50%;background:#F0B429;border:none;color:#000;display:flex;align-items:center;justify-content:center;font-weight:700;touch-action:manipulation"><svg
+          width="22" height="22" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.2"
           stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
           <path d="m9 18 6-6-6-6" />
         </svg></button>
