@@ -1,0 +1,495 @@
+<style>
+    @import url('https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=Epilogue:ital,wght@0,300;0,400;0,500;1,300&family=Cairo:wght@400;600;700&display=swap');
+
+    #ld {
+        font-family: 'Epilogue', sans-serif;
+        background: #080808;
+        color: #F0EDE8;
+        min-height: 100vh;
+        position: relative;
+        overflow: hidden;
+        display: flex;
+        flex-direction: column
+    }
+
+    .s {
+        min-height: calc(100vh - 52px);
+        padding: 48px 56px 20px;
+        display: flex;
+        flex-direction: column;
+        justify-content: center;
+        position: relative;
+        overflow: hidden
+    }
+
+    .syne {
+        font-family: 'Syne', sans-serif
+    }
+
+    .cairo {
+        font-family: 'Cairo', Tahoma, Arial, sans-serif
+    }
+
+    @keyframes fu {
+        from {
+            opacity: 0;
+            transform: translateY(12px)
+        }
+
+        to {
+            opacity: 1;
+            transform: translateY(0)
+        }
+    }
+
+    .fi {
+        animation: fu .38s ease forwards
+    }
+
+    * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0
+    }
+
+    table {
+        border-collapse: collapse;
+        width: 100%
+    }
+
+    button {
+        cursor: pointer;
+        font-family: inherit
+    }
+
+    ::-webkit-scrollbar {
+        display: none
+    }
+</style>
+<div id="ld"></div>
+<div id="nav"
+    style="position:fixed;bottom:0;left:0;right:0;padding:10px 56px;display:flex;align-items:center;justify-content:space-between;background:linear-gradient(to top,rgba(8,8,8,.98) 60%,transparent);z-index:99">
+    <div id="dots" style="display:flex;gap:5px;align-items:center"></div>
+    <div id="sname"
+        style="font-family:'Syne',sans-serif;font-size:10px;color:#333;letter-spacing:.1em;text-transform:uppercase">
+    </div>
+    <div style="display:flex;gap:8px">
+        <button id="pb" onclick="go(-1)"
+            style="width:30px;height:30px;border-radius:50%;background:#111;border:1px solid #1e1e1e;color:#555;font-size:14px;display:flex;align-items:center;justify-content:center">←</button>
+        <button id="nb" onclick="go(1)"
+            style="width:30px;height:30px;border-radius:50%;background:#F0B429;border:none;color:#000;font-size:14px;display:flex;align-items:center;justify-content:center;font-weight:700">→</button>
+    </div>
+</div>
+<script>
+    const G = "#F0B429", RU = "#D95C38", GR = "#3DAA68", BG = "#080808", S1 = "#0f0f0f", BR = "#1e1e1e", TX = "#F0EDE8", MT = "#555550";
+    const SLIDES = [
+        { id: "cover", name: "Cover" },
+        { id: "hook", name: "The Hook" },
+        { id: "problem", name: "Problem" },
+        { id: "gap", name: "Market Gap" },
+        { id: "competitive", name: "Competitive" },
+        { id: "solution", name: "Solution" },
+        { id: "diffs", name: "Differentiators" },
+        { id: "biz", name: "Business Model" },
+        { id: "exit", name: "Exit Strategy" },
+        { id: "next", name: "Next Steps" }
+    ];
+    let cur = 0, busy = false;
+
+    function badge(t, c = G) { return `<span style="display:inline-flex;align-items:center;background:${c}18;border:1px solid ${c}35;border-radius:20px;padding:4px 13px;color:${c};font-size:10px;font-weight:600;letter-spacing:.1em;text-transform:uppercase;font-family:'Syne',sans-serif">${t}</span>` }
+    function card(html, gold = false, style = "") { return `<div style="background:${gold ? `${G}09` : `${S1}`};border:1px solid ${gold ? `${G}30` : BR};border-radius:14px;padding:22px;${style}">${html}</div>` }
+    function dot(c = G) { return `<span style="display:inline-block;width:6px;height:6px;border-radius:50%;background:${c};flex-shrink:0;margin-top:7px"></span>` }
+    function h2(txt) { return `<h2 style="font-family:'Syne',sans-serif;font-size:clamp(26px,3.2vw,44px);font-weight:800;line-height:1.05;color:${TX};letter-spacing:-.03em;margin-bottom:8px">${txt}</h2>` }
+    function gold(t) { return `<span style="color:${G}">${t}</span>` }
+    function rust(t) { return `<span style="color:${RU}">${t}</span>` }
+
+    function renderCover() {
+        return `
+<div class="s syne" style="position:relative">
+  <div style="position:absolute;right:-40px;top:50%;transform:translateY(-50%);font-family:'Syne',sans-serif;font-size:clamp(240px,35vw,420px);font-weight:800;color:#111;line-height:1;user-select:none;pointer-events:none;letter-spacing:-.05em">L</div>
+  <div style="position:absolute;inset:0;background-image:linear-gradient(${BR} 1px,transparent 1px),linear-gradient(90deg,${BR} 1px,transparent 1px);background-size:52px 52px;opacity:.3;pointer-events:none"></div>
+  ${badge("Startup Pitch Deck · 2025")}
+  <div style="height:24px"></div>
+  <h1 style="font-family:'Syne',sans-serif;font-size:clamp(64px,10vw,110px);font-weight:800;line-height:.88;color:${TX};letter-spacing:-.05em">Letriq</h1>
+  <div style="width:52px;height:3px;background:linear-gradient(to right,${G},${RU});margin:22px 0;border-radius:2px"></div>
+  <p style="font-size:clamp(14px,1.7vw,18px);font-weight:300;color:#888;max-width:540px;line-height:1.55;margin-bottom:44px">
+    Open-source AI identity studio for ${gold("wordmarks")}, ${gold("lettermarks")}, and full brand systems.<br><br>
+    <em style="color:#555">Because seeing a logo should come before paying for one.</em>
+  </p>
+  <div style="display:flex;gap:clamp(20px,4vw,48px);flex-wrap:wrap">
+    ${[["$4.8B", "Addressable Market"], ["0", "Free Open-Source Competitors"], ["3", "Revenue Streams"]].map(([n, l]) => `
+    <div>
+      <div style="font-family:'Syne',sans-serif;font-size:clamp(24px,3.5vw,38px);font-weight:700;color:${G}">${n}</div>
+      <div style="font-size:11px;color:${MT};margin-top:3px;letter-spacing:.03em">${l}</div>
+    </div>`).join("")}
+  </div>
+</div>`}
+
+    function renderHook() {
+        return `
+<div class="s" style="padding-top:36px">
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:40px;align-items:center;height:100%">
+    <div dir="rtl" style="text-align:right">
+      ${badge("عرض الفريق", G)}
+      <div style="height:20px"></div>
+      <p class="cairo" style="font-size:clamp(16px,2vw,21px);font-weight:600;color:${TX};line-height:1.8;margin-bottom:16px">مين فينا ما مرّش بالموقف ده؟</p>
+      <p class="cairo" style="font-size:clamp(13px,1.5vw,15px);color:#999;line-height:2;margin-bottom:20px">
+        عندك فكرة مشروع تحرق جوّاك، بس لما تيجي تعمل هوية بصرية...<br>
+        الميزانية <span style="color:${RU}">صفر.</span><br>
+        فتروح لـ AI، تقوله "عايز لوجو"، ويطلعلك حاجة<br>
+        <span style="color:${RU}">generic وفارغة</span> مش بتعبّر عن أي حاجة.<br>
+        ليه؟ لأن الـ AI العام مش متخصص في الـ brand identity.
+      </p>
+      <div style="padding-right:18px;border-right:3px solid ${G}">
+        <p class="cairo" style="font-size:clamp(13px,1.5vw,15px);color:${TX};line-height:2.1">
+          <strong style="color:${G}">Letriq</strong> جاي يكسر المعادلة دي.<br>
+          أول AI identity studio متخصص في الـ wordmarks والـ lettermarks،<br>
+          مفتوح المصدر ومجاني.<br>
+          لأن اللي المفروض يوقفك هو فكرتك — مش ميزانيتك.
+        </p>
+      </div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:14px">
+      ${card(`<div style="font-size:10px;color:${MT};letter-spacing:.1em;text-transform:uppercase;margin-bottom:12px;font-family:'Syne',sans-serif">English Translation</div>
+      <p style="font-size:13px;color:#888;line-height:1.75;font-style:italic">"Who hasn't been there? You have a burning startup idea, but when it comes to brand identity — the budget is zero. You turn to AI, ask for a logo, and get back something generic and lifeless. Why? Because general AI isn't built for brand identity.<br><br>
+      Letriq breaks that equation. The first AI identity studio specialized in wordmarks and lettermarks — open-source and free. Because what should stop you is your idea, not your budget."</p>`)}
+      ${card(`<div style="font-size:10px;color:${MT};letter-spacing:.1em;text-transform:uppercase;margin-bottom:12px;font-family:'Syne',sans-serif">The Current Cycle</div>
+      <div style="display:flex;flex-wrap:wrap;gap:6px;align-items:center;font-size:12px">
+        ${["💡 Idea", "→", "🤖 AI Tool", "→", "😞 Generic PNG", "→", "😩 Back to zero"].map((t, i) => `<span style="background:${i % 2 === 0 ? BG : "transparent"};border:${i % 2 === 0 ? `1px solid ${BR}` : "none"};border-radius:6px;padding:${i % 2 === 0 ? "5px 10px" : "0"};color:${i === 6 ? RU : i % 2 === 1 ? "#2a2a2a" : "#666"};font-size:${i % 2 === 1 ? "15px" : "12px"}">${t}</span>`).join("")}
+      </div>`)}
+    </div>
+  </div>
+</div>`}
+
+    function renderProblem() {
+        return `
+<div class="s">
+  ${badge("The Problem", RU)}
+  <div style="height:16px"></div>
+  ${h2(`Why founders are ${rust("stuck")}`)}
+  <p style="color:${MT};margin-bottom:28px;font-size:14px">Brand identity is a bottleneck that kills momentum before launch.</p>
+  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:16px">
+    ${[
+                { e: "💸", t: "Cost Barrier", d: "Professional brand identity costs $300–$2,000+. Looka alone charges $65–$192/year. Early-stage founders either skip it entirely or get stuck.", n: "$300–2K", l: "avg. brand identity cost", c: RU },
+                { e: "🤖", t: "AI Disappointment", d: "General AI tools (Midjourney, DALL-E) produce raster images — not brand systems. Output is uncreative, non-scalable, and can't be used professionally.", n: "0", l: "free AI tools specialized for brand identity", c: RU },
+                { e: "⏳", t: "Freelancer Friction", d: "Freelancers take 3–7 days minimum. Revisions add weeks. Brand identity becomes a launch blocker, not an enabler.", n: "3–7 days", l: "avg. freelancer turnaround", c: RU }
+            ].map(p => `
+    <div style="background:${S1};border:1px solid ${BR};border-radius:14px;padding:22px;display:flex;flex-direction:column;gap:12px">
+      <div style="font-size:32px">${p.e}</div>
+      <h3 style="font-family:'Syne',sans-serif;font-size:15px;font-weight:700;color:${TX}">${p.t}</h3>
+      <p style="font-size:12px;color:${MT};line-height:1.6">${p.d}</p>
+      <div style="margin-top:auto;padding-top:14px;border-top:1px solid ${BR}">
+        <div style="font-family:'Syne',sans-serif;font-size:24px;font-weight:700;color:${p.c}">${p.n}</div>
+        <div style="font-size:10px;color:${MT};letter-spacing:.05em;margin-top:2px">${p.l}</div>
+      </div>
+    </div>`).join("")}
+  </div>
+</div>`}
+
+    function renderGap() {
+        const pts = [{ n: "Looka", x: 78, y: 62 }, { n: "Brandmark", x: 61, y: 44 }, { n: "Canva", x: 44, y: 20 }, { n: "Midjourney", x: 50, y: 11 }, { n: "Freelancers", x: 88, y: 77 }, { n: "Letriq ✦", x: 10, y: 87, star: true }];
+        return `
+<div class="s">
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:44px;align-items:center">
+    <div>
+      ${badge("Market Gap")}
+      <div style="height:16px"></div>
+      ${h2(`One quadrant ${gold("nobody owns")}`)}
+      <p style="color:${MT};margin-bottom:24px;font-size:14px;line-height:1.6">Every brand identity tool is either expensive <em>or</em> generic. The intersection of <strong style="color:${TX}">free + specialized</strong> has been completely ignored.</p>
+      <div style="display:flex;flex-direction:column;gap:9px">
+        ${["No free, open-source AI brand identity tool exists", "No AI tool specializes in wordmarks / lettermarks", "No free tool generates a complete brand system", "No free tool exports proper vector (SVG/AI) files", "No open-source community around brand identity AI"].map(t => `
+        <div style="display:flex;align-items:flex-start;gap:10px">
+          <span style="width:6px;height:6px;border-radius:50%;background:${G};flex-shrink:0;margin-top:6px;display:inline-block"></span>
+          <span style="font-size:13px;color:#999;line-height:1.5">${t}</span>
+        </div>`).join("")}
+      </div>
+    </div>
+    <div style="position:relative;width:100%;padding-bottom:92%">
+      <div style="position:absolute;inset:0;background:${S1};border:1px solid ${BR};border-radius:16px;overflow:hidden">
+        <div style="position:absolute;left:50%;top:8%;bottom:8%;width:1px;background:${BR}"></div>
+        <div style="position:absolute;top:50%;left:8%;right:8%;height:1px;background:${BR}"></div>
+        <div style="position:absolute;bottom:3%;left:9%;font-size:9px;color:${MT};letter-spacing:.1em;text-transform:uppercase">FREE</div>
+        <div style="position:absolute;bottom:3%;right:6%;font-size:9px;color:${MT};letter-spacing:.1em;text-transform:uppercase">EXPENSIVE</div>
+        <div style="position:absolute;top:8%;left:52%;font-size:9px;color:${MT};letter-spacing:.08em;text-transform:uppercase">SPECIALIZED</div>
+        <div style="position:absolute;bottom:52%;left:52%;font-size:9px;color:${MT};letter-spacing:.08em;text-transform:uppercase">GENERIC</div>
+        <div style="position:absolute;left:8%;top:8%;width:42%;height:42%;background:${G}08;border:1px dashed ${G}30;border-radius:8px;display:flex;align-items:center;justify-content:center">
+          <div style="text-align:center;font-family:'Syne',sans-serif;font-size:9px;color:${G}70;font-weight:600;line-height:1.7">THE GAP<br>LETRIQ FILLS</div>
+        </div>
+        ${pts.map(p => `
+        <div style="position:absolute;left:${p.x}%;top:${100 - p.y}%;transform:translate(-50%,-50%)">
+          <div style="width:${p.star ? 14 : 9}px;height:${p.star ? 14 : 9}px;border-radius:50%;background:${p.star ? G : "#3a3a3a"};${p.star ? `box-shadow:0 0 12px ${G}50;border:2px solid ${G}` : ""}"></div>
+          <div style="position:absolute;top:-17px;left:50%;transform:translateX(-50%);font-family:'Syne',sans-serif;font-size:${p.star ? 10 : 9}px;color:${p.star ? G : MT};white-space:nowrap;font-weight:${p.star ? 700 : 400}">${p.n}</div>
+        </div>`).join("")}
+      </div>
+    </div>
+  </div>
+</div>`}
+
+    function renderCompetitive() {
+        const COLS = ["Looka", "Canva", "Brandmark", "Midjourney", "Letriq"];
+        const ROWS = [
+            { l: "Free Tier", v: [false, "limited", false, false, true] },
+            { l: "Vector Export (Free)", v: [false, false, false, false, true] },
+            { l: "Wordmark Focused", v: ["~", false, "~", false, true] },
+            { l: "Full Brand System", v: ["$", false, "$", false, true] },
+            { l: "Open Source", v: [false, false, false, false, true] },
+            { l: "Developer API", v: ["$", "$", false, "$", true] }
+        ];
+        function cell(v, gold) {
+            if (v === true) return `<div style="width:20px;height:20px;border-radius:50%;background:${gold ? G : GR};display:flex;align-items:center;justify-content:center;margin:auto;font-size:11px;color:${gold ? "#000" : "#fff"}">✓</div>`;
+            if (v === false) return `<div style="width:20px;height:20px;border-radius:50%;background:#181818;display:flex;align-items:center;justify-content:center;margin:auto;font-size:11px;color:#2a2a2a">✕</div>`;
+            if (v === "~") return `<div style="width:20px;height:20px;border-radius:50%;background:#1a1900;display:flex;align-items:center;justify-content:center;margin:auto;font-size:14px;color:#6a5200">~</div>`;
+            return `<div style="font-size:11px;color:#444;text-align:center">💰 paid</div>`;
+        }
+        return `
+<div class="s">
+  ${badge("Competitive Analysis")}
+  <div style="height:14px"></div>
+  ${h2(`We win on ${gold("every axis")}`)}
+  <p style="color:${MT};margin-bottom:22px;font-size:13px">Feature comparison across the top brand identity tools.</p>
+  <table>
+    <thead><tr>
+      <th style="text-align:left;padding:8px 14px;color:${MT};font-size:10px;font-weight:500;letter-spacing:.08em;text-transform:uppercase;font-family:'Syne',sans-serif">Feature</th>
+      ${COLS.map(c => `<th style="text-align:center;padding:8px 10px;font-family:'Syne',sans-serif;color:${c === "Letriq" ? G : MT};font-weight:${c === "Letriq" ? 700 : 500};font-size:12px;background:${c === "Letriq" ? `${G}08` : "transparent"};border-bottom:2px solid ${c === "Letriq" ? G : BR}">${c}</th>`).join("")}
+    </tr></thead>
+    <tbody>
+      ${ROWS.map(r => `<tr style="border-bottom:1px solid ${BR}">
+        <td style="padding:11px 14px;color:#aaa;font-size:13px">${r.l}</td>
+        ${COLS.map((c, i) => `<td style="padding:11px 10px;text-align:center;background:${c === "Letriq" ? `${G}04` : "transparent"}">${cell(r.v[i], c === "Letriq")}</td>`).join("")}
+      </tr>`).join("")}
+    </tbody>
+  </table>
+  <div style="margin-top:14px;display:flex;gap:16px;flex-wrap:wrap">
+    ${[["✓", "Available", GR], ["~", "Partial", "#886600"], ["💰", "Paid only", MT], ["✕", "Not available", "#333"]].map(([i, l, c]) => `<div style="display:flex;align-items:center;gap:5px;font-size:11px;color:${c}">${i} ${l}</div>`).join("")}
+  </div>
+</div>`}
+
+    function renderSolution() {
+        return `
+<div class="s">
+  <div style="display:grid;grid-template-columns:1fr 1.4fr;gap:40px;align-items:center">
+    <div>
+      ${badge("The Solution", GR)}
+      <div style="height:16px"></div>
+      <h2 style="font-family:'Syne',sans-serif;font-size:clamp(26px,3.2vw,44px);font-weight:800;line-height:1.1;color:${TX};letter-spacing:-.03em;margin-bottom:18px">Brand identity<br>${gold("in minutes,")}<br>not months.</h2>
+      <p style="font-size:13px;color:#888;line-height:1.7">Letriq is an AI model trained specifically on typography-based brand identities — not general image generation. Output is clean, professional, and vector-ready from day one.</p>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:9px">
+      ${[
+                { i: "✦", t: "AI Wordmark Generator", d: "Type brand name + describe the vibe → multiple styled wordmarks in seconds" },
+                { i: "⬡", t: "Lettermark System", d: "Monogram and initials-based logo marks with full variation sets" },
+                { i: "◈", t: "Brand System Builder", d: "Auto-generate color palette, typography pairing, spacing + usage rules" },
+                { i: "↗", t: "Vector Export Engine", d: "SVG, PDF, and AI files — not PNG screenshots. Professional and scalable." },
+                { i: "⊕", t: "Open-Source Core", d: "Community-driven, customizable, integrable. Free tier that actually works." }
+            ].map(f => `
+      <div style="display:flex;gap:14px;align-items:flex-start;background:${S1};border:1px solid ${BR};border-radius:11px;padding:13px 16px">
+        <div style="font-size:18px;color:${G};width:22px;flex-shrink:0;margin-top:2px">${f.i}</div>
+        <div>
+          <div style="font-family:'Syne',sans-serif;font-size:13px;font-weight:600;color:${TX};margin-bottom:3px">${f.t}</div>
+          <div style="font-size:12px;color:${MT};line-height:1.5">${f.d}</div>
+        </div>
+      </div>`).join("")}
+    </div>
+  </div>
+</div>`}
+
+    function renderDiffs() {
+        return `
+<div class="s">
+  ${badge("Differentiators")}
+  <div style="height:14px"></div>
+  ${h2(`Six reasons Letriq ${gold("wins")}`)}
+  <p style="color:${MT};margin-bottom:24px;font-size:13px">Each one is hard to replicate. Together, they compound into a moat.</p>
+  <div style="display:grid;grid-template-columns:repeat(3,1fr);gap:12px">
+    ${[
+                { b: "Trust Moat", t: "Open Source", d: "Community trust. No lock-in. Anyone can audit, fork, or contribute — impossible to replicate through money alone.", c: GR },
+                { b: "Better Output", t: "Typography-First", d: "Wordmarks age better, scale to any size, and look more professional than illustrative logos. We specialize where AI excels.", c: G },
+                { b: "Complete Product", t: "Full Brand System", d: "Not just a logo. Colors, typography, spacing, usage rules — all in one export. Competitors charge $65+ for this.", c: "#7B68EE" },
+                { b: "Pro Quality", t: "Vector-Native", d: "Real SVG and AI files. Not low-res PNGs. Every export is production-ready and infinitely scalable.", c: G },
+                { b: "Growth Engine", t: "Zero Cost Barrier", d: "Free tier that genuinely works. Maximum user acquisition, community growth, and organic word-of-mouth.", c: GR },
+                { b: "B2B Revenue", t: "Developer API", d: "REST API for agencies and SaaS builders. A B2B layer that's very difficult for competitors to copy.", c: RU }
+            ].map(d => `
+    <div style="background:${S1};border:1px solid ${BR};border-top:3px solid ${d.c};border-radius:12px;padding:18px">
+      <div style="display:inline-block;background:${d.c}14;color:${d.c};font-size:9px;font-weight:700;letter-spacing:.1em;text-transform:uppercase;padding:3px 9px;border-radius:10px;margin-bottom:9px;font-family:'Syne',sans-serif">${d.b}</div>
+      <h3 style="font-family:'Syne',sans-serif;font-size:14px;font-weight:700;color:${TX};margin-bottom:6px">${d.t}</h3>
+      <p style="font-size:12px;color:${MT};line-height:1.6">${d.d}</p>
+    </div>`).join("")}
+  </div>
+</div>`}
+
+    function renderBiz() {
+        return `
+<div class="s">
+  ${badge("Business Model")}
+  <div style="height:14px"></div>
+  ${h2(`Freemium → ${gold("$50K MRR")}`)}
+  <p style="color:${MT};margin-bottom:22px;font-size:13px">Community-led growth → Pro conversion → B2B API layer.</p>
+  <div style="display:grid;grid-template-columns:repeat(4,1fr);gap:11px;margin-bottom:28px">
+    ${[
+                { n: "Community", p: "Free", d: ["Basic exports", "Watermark commercial", "Community access"], c: MT, hi: false },
+                { n: "Pro", p: "$9/mo", d: ["Vector exports", "No watermark", "5 brand projects"], c: G, hi: true },
+                { n: "Studio", p: "$29/mo", d: ["Unlimited projects", "Team collaboration", "Brand hosting"], c: G, hi: false },
+                { n: "API", p: "$99/mo", d: ["REST API access", "100 gen/month", "White-label ready"], c: RU, hi: false }
+            ].map(t => `
+    <div style="background:${t.hi ? `${G}0A` : S1};border:1px solid ${t.hi ? `${G}45` : BR};border-radius:12px;padding:16px 13px;text-align:center;position:relative">
+      ${t.hi ? `<div style="position:absolute;top:-9px;left:50%;transform:translateX(-50%);background:${G};color:#000;font-size:9px;font-weight:700;padding:2px 9px;border-radius:9px;white-space:nowrap;font-family:'Syne',sans-serif">BEST VALUE</div>` : ""}
+      <div style="font-family:'Syne',sans-serif;font-size:12px;font-weight:700;color:${t.c === MT ? "#777" : TX};margin-bottom:5px">${t.n}</div>
+      <div style="font-family:'Syne',sans-serif;font-size:20px;font-weight:800;color:${t.c};margin-bottom:12px">${t.p}</div>
+      ${t.d.map(d => `<div style="font-size:11px;color:${MT};margin-bottom:3px">${d}</div>`).join("")}
+    </div>`).join("")}
+  </div>
+  <div style="position:relative;display:flex">
+    <div style="position:absolute;top:18px;left:15%;right:15%;height:2px;background:${BR}"></div>
+    ${[
+                { lb: "Month 6", m: "$4.5K MRR", s: "10K users · 500 Pro", c: "#3a3a3a" },
+                { lb: "Month 12", m: "$22K MRR", s: "50K users + API rev.", c: G },
+                { lb: "Month 18", m: "$50K MRR", s: "100K users · 5K Pro", c: GR }
+            ].map(m => `
+    <div style="flex:1;text-align:center;position:relative;padding-top:38px">
+      <div style="position:absolute;top:8px;left:50%;transform:translateX(-50%);width:20px;height:20px;border-radius:50%;background:${m.c};border:3px solid ${BG};z-index:1"></div>
+      <div style="font-family:'Syne',sans-serif;font-size:17px;font-weight:700;color:${m.c}">${m.m}</div>
+      <div style="font-size:11px;color:${MT};margin-top:2px">${m.s}</div>
+      <div style="font-size:10px;color:#333;margin-top:2px;letter-spacing:.05em">${m.lb}</div>
+    </div>`).join("")}
+  </div>
+</div>`}
+
+    function renderExit() {
+        return `
+<div class="s">
+  <div style="display:grid;grid-template-columns:1fr 1fr;gap:36px;align-items:start">
+    <div>
+      ${badge("Exit Strategy", GR)}
+      <div style="height:14px"></div>
+      ${h2(`Built to be ${gold("acquired")}`)}
+      <p style="color:${MT};margin-bottom:18px;font-size:13px;line-height:1.65">Open-source communities can't be cloned — they can only be grown or acquired. Every company below needs what Letriq is building.</p>
+      <div style="display:flex;flex-direction:column;gap:9px">
+        ${[
+                { n: "Adobe", w: "AI-native community tool for Creative Cloud. Open-source builds trust they can't manufacture.", v: "$$$$" },
+                { n: "Canva", w: "Fills their AI brand identity gap. 100K users = instant distribution network they'd pay premium for.", v: "$$$" },
+                { n: "Figma", w: "Brand system integration completes the design-to-production lifecycle naturally.", v: "$$$" },
+                { n: "Wix/Squarespace", w: "Built-in white-label brand tool for their web builder platforms.", v: "$$" }
+            ].map(a => `
+        <div style="display:flex;gap:12px;align-items:center;background:${S1};border:1px solid ${BR};border-radius:10px;padding:12px 14px">
+          <div style="font-family:'Syne',sans-serif;font-size:13px;font-weight:700;color:${G};width:88px;flex-shrink:0">${a.n}</div>
+          <div style="font-size:11px;color:${MT};line-height:1.5;flex:1">${a.w}</div>
+          <div style="font-size:11px;color:${GR};flex-shrink:0">${a.v}</div>
+        </div>`).join("")}
+      </div>
+    </div>
+    <div>
+      ${card(`
+      <div style="font-family:'Syne',sans-serif;font-size:10px;color:${G};letter-spacing:.1em;text-transform:uppercase;margin-bottom:16px;font-weight:600">Assets We're Building That Have Value</div>
+      <div style="display:flex;flex-direction:column;gap:12px">
+        ${[
+                    { l: "Open-Source Community", d: "Can't be cloned — must be grown or acquired" },
+                    { l: "Brand Identity Dataset", d: "Proprietary training data for future AI models" },
+                    { l: "Fine-Tuned AI Model", d: "Specialized wordmark generation technology" },
+                    { l: "Recurring Revenue Base", d: "Predictable SaaS MRR at acquisition time" },
+                    { l: "Developer Ecosystem", d: "API users and white-label integrations" }
+                ].map(a => `
+        <div style="display:flex;gap:10px;align-items:flex-start">
+          <span style="width:6px;height:6px;border-radius:50%;background:${G};flex-shrink:0;margin-top:6px;display:inline-block"></span>
+          <div>
+            <div style="font-family:'Syne',sans-serif;font-size:12px;font-weight:600;color:${TX}">${a.l}</div>
+            <div style="font-size:11px;color:${MT};margin-top:1px">${a.d}</div>
+          </div>
+        </div>`).join("")}
+      </div>
+      <div style="margin-top:18px;padding-top:14px;border-top:1px solid ${BR};font-style:italic;font-size:12px;color:#555;line-height:1.6">
+        "Open-source communities aren't built — they're grown. And they can't be copied."
+      </div>`, true)}
+    </div>
+  </div>
+</div>`}
+
+    function renderNext() {
+        const tl = [
+            { w: "Wk 1–2", t: "Architecture", d: "AI model approach, tech stack, open-source repo setup", hi: false },
+            { w: "Wk 3–6", t: "Core MVP", d: "AI wordmark generator + basic UI + internal testing", hi: false },
+            { w: "Wk 7–8", t: "Brand System", d: "Auto-color, type pairing, vector export engine", hi: false },
+            { w: "Wk 9", t: "Beta Launch", d: "Open-source repo public, waitlist activation", hi: true },
+            { w: "Wk 10–12", t: "Grow", d: "Community feedback loop, first 1K users", hi: false }
+        ];
+        return `
+<div class="s">
+  <div style="display:grid;grid-template-columns:1fr 1.1fr;gap:36px;align-items:start">
+    <div>
+      ${badge("Next Steps", GR)}
+      <div style="height:14px"></div>
+      ${h2(`Let's ${gold("build it.")}`)}
+      <p style="color:${MT};margin-bottom:20px;font-size:13px">12-week MVP. Open source from day one.</p>
+      <div style="position:relative;padding-left:20px">
+        <div style="position:absolute;left:5px;top:8px;bottom:8px;width:2px;background:${BR}"></div>
+        ${tl.map(t => `
+        <div style="position:relative;margin-bottom:16px">
+          <div style="position:absolute;left:-14px;top:5px;width:9px;height:9px;border-radius:50%;background:${t.hi ? G : BR};border:2px solid ${t.hi ? G : "#2a2a2a"}"></div>
+          <div style="font-family:'Syne',sans-serif;font-size:9px;color:${MT};letter-spacing:.08em;margin-bottom:1px">${t.w}</div>
+          <div style="font-family:'Syne',sans-serif;font-size:13px;font-weight:600;color:${t.hi ? G : TX};margin-bottom:1px">${t.t}</div>
+          <div style="font-size:11px;color:${MT}">${t.d}</div>
+        </div>`).join("")}
+      </div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:12px">
+      ${card(`
+      <div style="font-family:'Syne',sans-serif;font-size:10px;color:${G};letter-spacing:.1em;text-transform:uppercase;margin-bottom:13px;font-weight:600">Team Roles Needed</div>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:7px">
+        ${["AI / ML Engineer", "Frontend Developer", "Brand / Design Lead", "Community Manager"].map(r => `
+        <div style="background:${BG};border:1px solid ${BR};border-radius:7px;padding:7px 11px;font-size:11px;color:#aaa">${r}</div>`).join("")}
+      </div>`)}
+      ${card(`
+      <div style="font-family:'Syne',sans-serif;font-size:10px;color:${G};letter-spacing:.1em;text-transform:uppercase;margin-bottom:13px;font-weight:600">First Milestones</div>
+      ${["5,000 waitlist signups before launch", "1,000 GitHub stars in first month", "100 Pro subscribers by month 3", "$1K MRR by end of month 4"].map(m => `
+      <div style="display:flex;gap:9px;margin-bottom:8px;align-items:flex-start">
+        <span style="color:${G};flex-shrink:0">→</span>
+        <span style="font-size:12px;color:#aaa">${m}</span>
+      </div>`).join("")}`)}
+      <div style="background:${G};border-radius:12px;padding:18px 22px;text-align:center">
+        <div style="font-family:'Syne',sans-serif;font-size:17px;font-weight:800;color:#000">Are you in?</div>
+        <div style="font-size:12px;color:rgba(0,0,0,.55);margin-top:4px">The gap is real. The timing is right. Let's own it.</div>
+      </div>
+    </div>
+  </div>
+</div>`}
+
+    const RENDERS = [renderCover, renderHook, renderProblem, renderGap, renderCompetitive, renderSolution, renderDiffs, renderBiz, renderExit, renderNext];
+    const N = SLIDES.length;
+
+    function go(dir) {
+        if (busy) return;
+        const next = cur + dir;
+        if (next < 0 || next >= N) return;
+        busy = true;
+        const el = document.getElementById("ld");
+        el.style.opacity = 0;
+        el.style.transition = "opacity .25s ease";
+        setTimeout(() => {
+            cur = next; render();
+            el.style.opacity = 1;
+            busy = false;
+        }, 260);
+    }
+
+    function render() {
+        const el = document.getElementById("ld");
+        el.innerHTML = RENDERS[cur]();
+        el.classList.add("fi");
+        setTimeout(() => el.classList.remove("fi"), 400);
+        // dots
+        const d = document.getElementById("dots");
+        d.innerHTML = SLIDES.map((_, i) => `<div onclick="if(!busy){cur=${i};render()}" style="width:${i === cur ? 22 : 6}px;height:4px;border-radius:2px;background:${i === cur ? G : "#1e1e1e"};cursor:pointer;transition:all .25s ease"></div>`).join("");
+        document.getElementById("sname").textContent = SLIDES[cur].name;
+        const pb = document.getElementById("pb"), nb = document.getElementById("nb");
+        pb.style.color = cur === 0 ? "#2a2a2a" : "#666";
+        pb.style.background = cur === 0 ? "#0a0a0a" : "#111";
+        nb.style.background = cur === N - 1 ? "#111" : G;
+        nb.style.color = cur === N - 1 ? "#2a2a2a" : "#000";
+    }
+
+    document.addEventListener("keydown", e => {
+        if (e.key === "ArrowRight" || e.key === "ArrowDown") go(1);
+        if (e.key === "ArrowLeft" || e.key === "ArrowUp") go(-1);
+    });
+
+    render();
+</script>
